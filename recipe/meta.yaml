@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/rxn-utils-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/rxn-utils-{{ version }}.tar.gz
   sha256: 5af2feabb4b82dffb2aa3dda6973c6d9f658175d36380ac36d8e88808afa033e
 
 build:
@@ -15,16 +15,16 @@ build:
     - rxn-stable-shuffle = rxn.utilities.scripts.stable_shuffle:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 2
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools >=59.2.0
     - wheel
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - attrs >=21.2.0
     - click >=8.0
     - diskcache >=5.2.1
@@ -43,6 +43,7 @@ test:
     - rxn-stable-shuffle --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/rxn4chemistry/rxn-utilities
